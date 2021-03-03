@@ -10,6 +10,7 @@ func NewPoW(block chain.Block) Consensus{
 	return PoW{block}
 }
 
+
 func NewPoS(block chain.Block) Consensus{
 	return PoS{Block:block}
 }
