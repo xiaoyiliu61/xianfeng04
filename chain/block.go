@@ -1,6 +1,7 @@
 package chain
 
 import (
+	"XianfengChain04/consensus"
 	"XianfengChain04/utils"
 	"bytes"
 	"crypto/sha256"
@@ -50,8 +51,8 @@ func CreateGenesis(data []byte)Block{
 	//计算并设置哈希值
 	genesis.CalculateBlockHash()
 
-	/*proof:=consensus.NewPoS(genesis)
-	genesis.Nonce=proof.FindNonce()*/
+	proof:=consensus.NewPoW(genesis)
+	genesis.Nonce=proof.FindNonce()
 	return genesis
 }
 
@@ -68,5 +69,7 @@ func NewBlock(height int64,prev [32]byte,data []byte) Block  {
 	}
 	//todo 设置哈希、计算并设置nonce
 	newBlock.CalculateBlockHash()
+	proof:=consensus.NewPoW(newBlock)
+	newBlock.Nonce=proof.FindNonce()
 	return newBlock
 }
