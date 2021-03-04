@@ -5,7 +5,7 @@ import (
 )
 
 type Consensus interface {
-	FindNonce() int64
+	FindNonce() ([32]byte,int64)
 }
 
 /**
@@ -15,7 +15,7 @@ type BlockInterface interface {
 	GetHeight() int64
 	GetVersion() int64
 	GetTimeStamp() int64
-	GetPreHash() [32]byte
+	GetPrevHash() [32]byte
 	GetData() []byte
 }
 

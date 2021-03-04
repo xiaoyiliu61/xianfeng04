@@ -47,7 +47,7 @@ func CalculateHash(block BlockInterface,nonce int64) [32]byte{
 	versionByte,_:=utils.Int2Byte(block.GetVersion())
 	timeByte,_:=utils.Int2Byte(block.GetHeight())
 	nonceByte,_:=utils.Int2Byte(nonce)
-	perv:=block.GetPreHash()
+	perv:=block.GetPrevHash()
 	blockByte:=bytes.Join([][]byte{heightByte,versionByte,perv[:],timeByte,nonceByte,block.GetData()},[]byte{})
 	//计算区块hash
 	hash:=sha256.Sum256(blockByte)

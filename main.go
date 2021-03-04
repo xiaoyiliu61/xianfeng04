@@ -7,13 +7,11 @@ import (
 
 func main() {
 	fmt.Println("hello world")
-	block0:=chain.CreateGenesis([]byte("hello world"))
+	blockChain:=chain.CreatechainWithGensis([]byte("hello world"))
+	blockChain.CreateNewBlock([]byte("hello"))
 
-	block1:=chain.NewBlock(block0.Height,block0.Hash,[]byte("hello world"))
+    fmt.Println("区块链中区块的个数",len(blockChain.Blocks))
 
-	fmt.Println(block0)
-	fmt.Println(block1)
-
-    fmt.Println("区块0的哈希值：",block0.Hash)
-    fmt.Println("区块1的哈希值：",block1.Hash)
+    fmt.Println("区块0的哈希值：",blockChain.Blocks[0])
+    fmt.Println("区块1的哈希值：",blockChain.Blocks[1])
 }
