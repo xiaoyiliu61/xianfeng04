@@ -46,7 +46,7 @@ func (block Block) GetData() []byte{
 	return block.Data
 }
 
-func (block *Block) CalculateBlockHash()  {
+/*func (block *Block) CalculateBlockHash()  {
 	heightByte,_:=utils.Int2Byte(block.Height)
 	versionByte,_:=utils.Int2Byte(block.Version)
 	timeByte,_:=utils.Int2Byte(block.TimeStamp)
@@ -55,7 +55,7 @@ func (block *Block) CalculateBlockHash()  {
 	blockByte:=bytes.Join([][]byte{heightByte,versionByte,block.PrevHash[:],timeByte,nonceByte,block.Data},[]byte{})
     //为区块的hash字段赋值
 	block.Hash=sha256.Sum256(blockByte)
-}
+}*/
 /**
 生成创世区块的函数
  */
@@ -69,9 +69,11 @@ func CreateGenesis(data []byte)Block{
 	}
 	//todo 设置哈希、计算并设置hash
 	//计算并设置哈希值
-	genesis.CalculateBlockHash()
+
 	proof:=consensus.NewPoW(genesis)
-	genesis.Nonce=proof.FindNonce()
+	hash,Nonce=proof.FindNonce()
+	genesis.Hash=hash
+	genesis.Nonce=nonce
 	return genesis
 }
 
@@ -87,8 +89,10 @@ func NewBlock(height int64,prev [32]byte,data []byte) Block  {
 		Data:      data,
 	}
 	//todo 设置哈希、计算并设置nonce
-	newBlock.CalculateBlockHash()
+
 	proof:=consensus.NewPoW(newBlock)
-	newBlock.Nonce=proof.FindNonce()
+	hash,Nonce=proof.FindNonce()
+	newBlock.Hash=hash
+	newBlock.Nonce=nonce
 	return newBlock
 }
