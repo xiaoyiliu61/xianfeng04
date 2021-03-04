@@ -26,6 +26,26 @@ type Block struct {
 	Data []byte
 }
 
+func (block Block) GetHeight() int64{
+	return block.Height
+}
+
+func (block Block) GetVersion() int64{
+	return block.Version
+}
+
+func (block Block) GetTimeStamp() int64{
+	return block.TimeStamp
+}
+
+func (block Block) GetPrevHash() [32]byte{
+	return block.PrevHash
+}
+
+func (block Block) GetData() []byte{
+	return block.Data
+}
+
 func (block *Block) CalculateBlockHash()  {
 	heightByte,_:=utils.Int2Byte(block.Height)
 	versionByte,_:=utils.Int2Byte(block.Version)
@@ -50,7 +70,6 @@ func CreateGenesis(data []byte)Block{
 	//todo 设置哈希、计算并设置hash
 	//计算并设置哈希值
 	genesis.CalculateBlockHash()
-
 	proof:=consensus.NewPoW(genesis)
 	genesis.Nonce=proof.FindNonce()
 	return genesis
